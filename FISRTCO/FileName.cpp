@@ -1,26 +1,29 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-#include <map>
+#include <iostream> //C++표준 라이브러리
+#include <string> //c++에서 std::string을 사용하려면 꼭 해줘야함
+#include <cstdlib> //-->stdlib.h (다양한 유틸리티 제공, 난수 등)
+#include <ctime> //time(0)(난수 발생 함수) 이건 srand(time(0))이렇게 사용되며, 출력할때마다 랜덤값나옴, rand()는 매번 같은값
+#include <map> //map<string, int> inventory;이렇게 선언해주고 inventory["빤스"]++; 인벤토리에 빤스 한개 추가
 #include <stdio.h>
-
-using namespace std;
+//cstdio=stdio.h 인데 표준 함수가std이름 공간에 있는거임 stdio.h는 global namespace에 있는거고
+//그래서 std::printf("")는 cstdio에서만 사용 가능함
+//마찬가지로 stdlib.h->cstdlib
+using namespace std; //C++에서 아주 중요함 : std:: 생략 가능
 
 int main() {
-    srand(static_cast<unsigned int>(time(0)));
+    srand(static_cast<unsigned int>(time(0)));//static_cast<변환할 타입>(변환할 대상) 여기서는 time()가 time_t타입 즉 명시적이지 않은 타입이 사용되어서 안전하게 명시적으로 변환해주는거임
+    //=srand(time(0)); 가능하긴 하는데 안전하고 의도를 명확히 보여주는 습관을 기르는게 좋다
     int a = 0;
     while (a == 0) {
 
-        string name;
+        string name; //네임 변수를 설정해주는거임
         int playerHP = 100;
         int dragonHP = 400;
         int coins = 0;
-        bool hasChain = false;
-        map<string, int> inventory;
+        bool hasChain = false;//자료형 체인 초기값, 체인 가졌냐?
+        map<string, int> inventory;//인벤토리라는 이름을 가진 문자열과 개수를 받음
 
         cout << "캐릭터 이름을 입력하세요: ";
-        cin.ignore();
+        cin.ignore();//예를들어 이름[엔터]를 하면 cout는 이름만 받고 \n는 버퍼에 계속 남아있어서 이걸 지워주는 용도
         getline(cin, name);
 
         while (playerHP > 0 && dragonHP > 0) {
@@ -158,4 +161,4 @@ int main() {
     }
     return 0;
 }
-//최종이다!
+//std::이건 내가 선언한 string이랑 헷갈리지 말라고 "standard의 ()이야"라고 지정해주는거임 생략 가능함
